@@ -1,0 +1,44 @@
+<form id="form" action="send.php" method="post">
+	<fieldset>
+		<legend>Dados Pessoais</legend>
+		<span class="fieldset_description">Indique os seus dados pessoais e ajude a caracterizar a comunidade de colaboradores do projeto</span>
+		<label>
+			Nome
+			<input type="text" name="name" placeholder="Indique o seu nome"/>
+		</label>
+		<label>
+			Sua idade
+			<input type="text" name="age" placeholder="Apenas os algarismos" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"/>
+		</label>
+	</fieldset>
+
+	<a id="btn_back" class="btn btn_tertiary">back</a>
+	<button id="btn_enter" class="btn btn_secondary">enter</button>
+	
+</form>
+
+
+<script>
+
+	$(" #btn_back ").click(function(event) {
+
+		event.preventDefault();
+		var page = "pages/start.html";
+		var target = "main";
+		app_navigation(page, target);
+	});
+
+	$(" #btn_enter ").click(function(event) {
+		event.preventDefault();
+
+		var form_id = "form";
+		var local_key = "user_id";
+		processForm(form_id, local_key, false);
+
+		var page = "pages/home.html";
+		var target = "main";
+		app_navigation(page, target);
+	});
+
+
+</script>

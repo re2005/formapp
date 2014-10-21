@@ -1,0 +1,49 @@
+<header>
+	<span class="logo"><img src="img/raven.png" width="180px;"></span>
+	<h1 id="user_name"></h1>
+</header>
+
+
+
+<div id="page_slide" class="close">
+
+	<a id="btn_close" class="icon icon-close">back</a>
+	<div id="content"></div>
+
+</div>
+
+<article id="data_list">
+	<ul>
+		<li id="my_data" class="icon icon-cloud">My data sent</li>
+		<li id="my_data_pendding" class="icon icon-inbox">Pedding to send</li>
+		<li id="all_data" class="icon icon-book">See all data</li>
+	</ul>
+</article>
+
+
+<footer>
+	<button id="send" class="btn btn_primary">send new data</button>
+</footer>
+
+
+<script>
+
+	// Load username and age on header
+	get_user()
+
+	$(" #all_data ").click(function(event) {
+		event.preventDefault();
+		var page = "pages/all_data.html";
+		app_slide(page);
+	});
+
+	$(" #btn_close ").click(function(event) {
+		event.preventDefault();
+
+		$( "#page_slide" ).addClass("close");
+		
+	});
+
+
+
+</script>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1.0, maximum-scale=1.0", minimal-ui>
+	<title>Form Renatex</title>
+	<link href="css/main.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Hind:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body ontouchstart="">
+
+	<section class="content">
+
+<div id="image"></div>
+<output id="list"></output>
+
+	<header>
+		<h1 id="user_name"></h1>
+		<img src="img/raven.png" width="180px;" class="logo">
+		<h1 class="header">
+			Projecto de Monitoria do Corvo Indiano em Moçambique
+		</h1>
+		<h2 class="header_title">
+			Este inquérito destina-se a compilar dados de distribuição e ecologia da espécie. Leia com atenção as questões e forneça a informação com o maior detalhe possível. Todas as questões são importantes. Colabore!
+		</h2>
+
+		<button id="start" class="btn btn_secondary">start</button>
+	</header>
+		
+		<article>
+			<form id="form" action="send.php" method="post">
+
+<div class="level1">
+				<fieldset>
+					<legend>Dados Pessoais</legend>
+					<span class="fieldset_description">Indique os seus dados pessoais e ajude a caracterizar a comunidade de colaboradores do projeto</span>
+					<label>
+						Nome
+						<input type="text" name="name" placeholder="Indique o seu nome"/>
+					</label>
+					<label>
+						Sua idade
+						<input type="text" name="age" placeholder="Apenas os algarismos" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"/>
+					</label>
+				</fieldset>
+
+				<button id="continue" class="btn btn_secondary">continue</button>
+</div>
+<div class="level2">
+				<fieldset>
+					<legend>Dados da Observação</legend>
+					<label>
+						Data/hora
+						<input type="text" name="data" placeholder="Indique a data e a hora" />
+					</label>
+					<label>
+						Número de indivíduos
+						<input type="text" name="quantity" placeholder="Indique o número de indivíduos observados" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"/>
+					</label>
+					<label>
+						Atividade
+						<span class="label_description">
+							Indique a atividade predominante dos indivíduos observados. Esta informação pode ser impraticável se o bando é grande. Se for o caso indique "Não registou"
+						</span>
+						<select name="activity">
+							<option value="">Selecione um item</option>
+							<option value="Beber">Beber</option>
+							<option value="Comer">Comer</option>
+							<option value="Voo">Voo</option>
+							<option value="Interação">Interação (luta)</option>
+							<option value="Não registou">Não registou</option>
+						</select>							
+					</label>
+
+					<label>
+						Comportamento
+						<span class="label_description">
+							Indique o comportamento predominante dos indivíduos. Esta informação pode ser impraticável se o bando é grande. Se for o caso indique "Não registou".
+						</span>
+						<select name="behaivor">
+							<option value="">Selecione um item</option>
+							<option value="Alimentação">Alimentação</option>
+							<option value="Voo">Voo</option>
+							<option value="Interação">Interação (outros indivíduos)</option>
+							<option value="Atacar">Atacar outras aves (outras espécies)</option>
+							<option value="Descanso">Descanso</option>
+							<option value="Não registou">Não registou</option>
+						</select>							
+					</label>
+				</fieldset>
+
+
+
+				<fieldset>
+					<legend>Habitat</legend>
+					<span class="fieldset_description">
+						Procure ser o mais preciso quanto puder
+					</span>
+					<label>
+						Tempo
+						<select name="weather">
+							<option value="">Selecione um item</option>
+							<option value="Limpo">Limpo</option>
+							<option value="Nublado">Nublado</option>
+							<option value="Chuvoso">Chuvoso</option>
+							<option value="Tempestuoso">Tempestuoso</option>
+							<option value="Não registou">Não registou</option>
+						</select>
+					</label>
+					<label>
+						Habitat
+						<span class="label_description">
+							Indique as características ecológicas principais do local onde se deu a observação
+						</span>						
+						<select name="habitat">
+							<option value="">Selecione um item</option>
+							<option value="Árvore alta (+25m)">Árvore alta (+25m)</option>
+							<option value="Árvore média (até 25m)">Árvore média (até 25m)</option>
+							<option value="Árvore baixa (abaixo de 5m)">Árvore baixa (abaixo de 5m)</option>
+							<option value="Próximo ou em água">Próximo ou em água</option>
+							<option value="Depósito de lixo">Depósito de lixo</option>
+							<option value="Urbano">Urbano</option>
+							<option value="Agrícola">Agrícola</option>
+							<option value="Florestal">Florestal</option>
+							<option value="Não registou">Não registou</option>
+						</select>
+					</label>
+				</fieldset>
+
+
+				<fieldset>
+					<legend>Dados do Local</legend>
+					<label>
+						Coordenadas
+						<span class="label_description">
+							Confirme as coordenadas
+						</span>
+						<div class="two_col coor">Latitude
+							<input type="text" name="latitude"/>
+						</div>
+						<div class="two_col coor">Longitude
+							<input type="text" name="longitude"/>
+						</div>
+						<a id="get_position" class="btn btn_primary">Obter coordenadas</a>
+					</label>
+				</fieldset>
+
+				<fieldset>
+					<legend>Observações</legend>
+					<label>
+						<span class="label_description">
+							Se tiver outras informações relevantes, aponte neste campo. Se não encontra o município ou distrito, indique neste campo. Se observou algum comportamento relevante, faça aqui uma breve descrição.
+						</span>
+						<textarea name="comments"></textarea>
+					</label>
+				</fieldset>
+
+
+				<fieldset>
+					<legend>Imagem</legend>
+					<label>
+						<input type="file" id="files" name="files[]" multiple>
+
+						<!-- <input id="file" name="image" type="file" accept="image/*" capture> -->
+					</label>
+				</fieldset>
+
+
+				<fieldset class="footer">
+						<button id="show" class="btn btn_tertiary">show</button>
+						<button id="save" class="btn btn_secondary">save</button>
+						<button id="send" class="btn btn_primary">send</button>
+						<button id="cancel" class="btn btn_primary">cancel</button>
+				</fieldset>
+			</form>
+
+</div>
+
+		</article>
+
+		<article class="text_data">
+			<p id="result"></p>
+			<p id="view"></p>
+		</article>
+	</section>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/core.js"></script>
+</body>
+</html>
