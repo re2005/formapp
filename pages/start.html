@@ -1,0 +1,30 @@
+
+<article class="start">
+
+	<span class="logo">
+		<img src="img/raven.png">
+	</span>
+
+	<h1 class="header">
+		Projecto de Monitoria do Corvo Indiano em Moçambique
+	</h1>
+	<h2 class="header_title">
+		Este inquérito destina-se a compilar dados de distribuição e ecologia da espécie. Leia com atenção as questões e forneça a informação com o maior detalhe possível. Todas as questões são importantes. Colabore!
+	</h2>
+
+	<button id="btn_start_app" class="btn btn_secondary">start</button>
+
+
+</article>
+
+<script>
+
+	$(" #btn_start_app ").click(function(event) {
+		event.preventDefault();
+
+		var page = "pages/create_id.html";
+		var target = "main";
+		app_navigation(page, target);
+	});
+
+</script>

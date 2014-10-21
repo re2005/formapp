@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1.0, maximum-scale=1.0", minimal-ui>
+	<title>Form Renatex</title>
+	<link href="css/main.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Hind:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body ontouchstart="">
+
+
+<div id="loading">
+	<div class="spinner">
+		<div class="double-bounce1"></div>
+		<div class="double-bounce2"></div>
+	</div>
+</div>
+
+	<section id="main">
+		<div id="image"></div>
+		<output id="list"></output>
+	</section>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/core.js"></script>
+
+	<script>
+
+	var user_id = localStorage.getItem("user_id");
+
+	if ( !user_id ){
+		(function start(){
+			var page = "pages/start.html";
+			var target = "main";
+			app_navigation(page, target);
+		})();
+	} else {
+		(function start(){
+			var page = "pages/home.html";
+			var target = "main";
+			app_navigation(page, target);
+		})();		
+	}
+
+
+	</script>
+
+</body>
+</html>
