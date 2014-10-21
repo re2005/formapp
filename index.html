@@ -8,20 +8,35 @@
 	<link href="css/main.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Hind:400,700' rel='stylesheet' type='text/css'>
 </head>
-<body ontouchstart="">
+<body ontouchstart="" class="container">
 
 
-<div id="loading">
-	<div class="spinner">
-		<div class="double-bounce1"></div>
-		<div class="double-bounce2"></div>
-	</div>
-</div>
+	<header>
+		<span class="logo"><img src="img/raven.png" width="180px;"></span>
+		<h1 id="user_name"></h1>
+	</header>
+
+	<nav>
+		<ul>
+			<li id="my_data" class="icon icon-cloud">My data sent</li>
+			<li id="my_data_pendding" class="icon icon-inbox">Pedding to send</li>
+			<li id="all_data" class="icon icon-book">See all data</li>
+		</ul>
+	</nav>
+
 
 	<section id="main">
-		<div id="image"></div>
-		<output id="list"></output>
+		<div id="content"></div>
 	</section>
+
+
+	<footer>
+		<button id="send" class="alizarin-flat-button btn">send new data</button>
+	</footer>
+
+	<div id="loading"><div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div></div>
+
+
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/core.js"></script>
@@ -33,17 +48,55 @@
 	if ( !user_id ){
 		(function start(){
 			var page = "pages/start.html";
-			var target = "main";
-			app_navigation(page, target);
+			app_nav(page);
 		})();
 	} else {
 		(function start(){
-			var page = "pages/home.html";
-			var target = "main";
-			app_navigation(page, target);
-		})();		
+			get_user();
+			$("nav, header, footer").fadeIn(500);
+		})();
 	}
 
+
+
+
+	$(" #all_data ").click(function(event) {
+		event.preventDefault();
+		var page = "pages/all_data.html";
+		var target = "#main";
+		app_nav(page, target);
+	});
+
+
+
+
+
+
+	$(" #btn_close ").click(function(event) {
+		event.preventDefault();
+		$( "#page_slide" ).addClass("close");
+	});
+
+
+
+
+	$(" #send ").click(function(event) {
+		event.preventDefault();
+		var page = "pages/send.html";
+		var target = "#main";
+		app_nav(page, target);		
+		
+	});	
+
+
+
+
+	(function(){
+		$("ul li").click(function(){
+			$("ul li").removeClass("active");
+			$(this).addClass("active");
+		})
+	})();
 
 	</script>
 

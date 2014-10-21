@@ -3,6 +3,7 @@ Renatex Form APP
 */
 
 
+
 function app_navigation(page, target) {
 	console.log(page, target);
 	$( target ).empty().hide();
@@ -17,18 +18,20 @@ function app_navigation(page, target) {
 
 
 
-function app_slide(page) {
-	
-	$( "#loading" ).fadeIn(300);
-
-	$( "#page_slide #content" ).load(page,function(responseTxt,statusTxt,xhr) {
-			if(statusTxt=="success")
-				$( "#page_slide" ).removeClass("close");
-				$( "#loading" ).fadeOut(300);			
-			if(statusTxt=="error")
-				console.log("Error: "+xhr.status+": "+xhr.statusText);
+function app_nav(page, target) {
+	$.ajax({
+	    url: page,
+	    success: function (data) {
+	    	if (!target) {
+	    		$('body').append(data).hide().fadeIn(500);
+	    	}
+	    	 else {
+	    	 	$(target).empty();
+	    	 	$(target).append(data).hide().fadeIn(500);
+	    	 }
+		},
+	    dataType: 'html'
 	});
-
 }
 
 
@@ -99,14 +102,13 @@ $('#show').click (function (event) {
 
 
 
-
-function processForm(form_id, local_key) {
+function processForm(form_id, local_key, timestamp) {
 	
 	// Save Form on LocalStorage
-	storeMessage(form_id, local_key);
+	storeMessage(form_id, local_key, timestamp);
 
 	// Send using PHP
-	$.post( $(form_id).attr("action"), $("#"+form_id+" :input").serializeArray(), function(data){
+	$.post( $(form_id).attr("action"), $(form_id+" :input").serializeArray(), function(data){
 		console.log("Data sent");
 		return false
 	});
@@ -137,25 +139,6 @@ function clearInput() {
 
 
 
-
-$('#continue').click (function (event) {
-	event.preventDefault();
-	$( ".level1" ).slideUp("fast");
-	$( ".level2" ).show();
-});
-
-
-
-
-$('#cancel').click (function (event) {
-	event.preventDefault();
-	$( "header" ).show();
-	$( ".level1, .level2" ).hide();
-});
-
-
-
-
 // Have Local Storage
 function isLocalStorageSupported(){
 	if(typeof(Storage) !== "undefined" && window['localStorage'] != null ) {
@@ -168,10 +151,9 @@ function isLocalStorageSupported(){
 
 
 
-
 function saveimg(id, form_id) {
 
-	if( $("#"+form_id+" label ").length ) {
+	if( $(form_id+" label ").length ) {
 		return false
 	}
 
@@ -246,8 +228,8 @@ function openimg(id) {
 // Save on Local Storage
 function storeMessage(form_id, local_key, timestamp){
 	if(isLocalStorageSupported){
-
-		if (timestamp) {
+		console.log(timestamp);
+		if (!timestamp) {
 			var local_key = local_key + new Date().getTime();	
 		}
 		var local_storage = JSON.stringify($(form_id).serializeObject());
@@ -376,7 +358,7 @@ function buildData(data, target) {
 		var container = $("<ul class=report/>");
 		$.each(this, function(k, v) {	
 			$("<li><span>"+ k + ":</span> " + v + "</li>").appendTo(container);
-			$('#'+target).prepend(container);
+			$(target).prepend(container);
 		});
 	});
 }

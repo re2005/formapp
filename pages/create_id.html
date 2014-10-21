@@ -1,3 +1,4 @@
+<article class="modal create_id">
 <form id="form" action="send.php" method="post">
 	<fieldset>
 		<legend>Dados Pessoais</legend>
@@ -24,21 +25,25 @@
 
 		event.preventDefault();
 		var page = "pages/start.html";
-		var target = "main";
-		app_navigation(page, target);
+		app_nav(page);
+		$( ".create_id" ).remove();
 	});
+
 
 	$(" #btn_enter ").click(function(event) {
 		event.preventDefault();
 
 		var form_id = "form";
 		var local_key = "user_id";
-		processForm(form_id, local_key, false);
+		var timestamp = "false";
+		processForm(form_id, local_key, timestamp);
 
-		var page = "pages/home.html";
-		var target = "main";
-		app_navigation(page, target);
+		$( ".create_id" ).remove();
+		get_user();
+		$("nav, header, footer").fadeIn(500);
 	});
 
 
 </script>
+
+</article>
