@@ -1,5 +1,4 @@
-
-<article class="start">
+<article class="start modal">
 
 	<span class="logo">
 		<img src="img/raven.png">
@@ -12,10 +11,8 @@
 		Este inquérito destina-se a compilar dados de distribuição e ecologia da espécie. Leia com atenção as questões e forneça a informação com o maior detalhe possível. Todas as questões são importantes. Colabore!
 	</h2>
 
-	<button id="btn_start_app" class="btn btn_secondary">start</button>
+	<button id="btn_start_app" class="belize-hole-flat-button">start</button>
 
-
-</article>
 
 <script>
 
@@ -23,8 +20,11 @@
 		event.preventDefault();
 
 		var page = "pages/create_id.html";
-		var target = "main";
-		app_navigation(page, target);
+		app_nav(page);
+		//app_navigation(page, target);
+		$( ".start" ).fadeOut(500).remove();
 	});
 
 </script>
+
+</article>

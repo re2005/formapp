@@ -3,20 +3,25 @@
 
 @import "reset.less";
 @import "elements.less";
+//@import "grid.less";
 @import "icons.less";
 @import "buttons.less";
 @import "home.less";
 
 
 
-#main{
-	
-}
 
-
-.start {
+.modal {
+	background: rgba(255, 255, 255, 0.95);
 	padding: 20px;
 	text-align: center;
+	z-index: 100;
+	position: fixed;
+	bottom: 0;
+	top: 0;
+}
+
+.start {
 
 	.logo {
 		width: 160px;
@@ -33,6 +38,9 @@
 }
 
 
+
+
+
 /* Form */
 form {
 	margin-bottom: 100px;
@@ -41,12 +49,10 @@ form {
 fieldset {
 	display: block;
 	margin: 14px 0;
-	background: #F2F2F2;
 	padding: 10px;
 }
 legend {
 	padding: 6px 12px;
-	background: #F2F2F2;
 	font-size: 1.1rem;
 	font-weight: bold;
 	display: block;
@@ -68,6 +74,7 @@ input[type="text"], select, textarea {
 	border: none;
 	border-bottom: solid 2px #c9c9c9;
 	transition: border 0.3s;
+	background: #eee;
 }
 input:focus,
 input.focus {
@@ -163,10 +170,6 @@ select {
 
 
 
-.level2, .level1 {
-	display: none;
-}
-
 
 
 // Loading
@@ -221,3 +224,24 @@ select {
     -webkit-transform: scale(1.0);
   }
 }
+
+
+
+
+
+
+/* #Mobile (Landscape)
+================================================== */
+
+    /* Note: Design for a width of 480px */
+
+    @media only screen and (max-width: 480px) and (max-width: 767px) {
+
+    	nav {
+    		width: 50%;
+    		
+    		li{
+    			padding: 15px 5px;
+    		}
+    	}
+    }

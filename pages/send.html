@@ -1,0 +1,164 @@
+<form id="form" action="send.php" method="post">
+
+
+	<input type="hidden" name="name"/>
+	<input type="hidden" name="age">
+
+<div class="level2">
+<fieldset>
+	<legend>Dados da Observação</legend>
+	<label>
+		Data/hora
+		<input type="text" name="data" placeholder="Indique a data e a hora" />
+	</label>
+	<label>
+		Número de indivíduos
+		<input type="text" name="quantity" placeholder="Indique o número de indivíduos observados" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"/>
+	</label>
+	<label>
+		Atividade
+		<span class="label_description">
+			Indique a atividade predominante dos indivíduos observados. Esta informação pode ser impraticável se o bando é grande. Se for o caso indique "Não registou"
+		</span>
+		<select name="activity">
+			<option value="">Selecione um item</option>
+			<option value="Beber">Beber</option>
+			<option value="Comer">Comer</option>
+			<option value="Voo">Voo</option>
+			<option value="Interação">Interação (luta)</option>
+			<option value="Não registou">Não registou</option>
+		</select>							
+	</label>
+
+	<label>
+		Comportamento
+		<span class="label_description">
+			Indique o comportamento predominante dos indivíduos. Esta informação pode ser impraticável se o bando é grande. Se for o caso indique "Não registou".
+		</span>
+		<select name="behaivor">
+			<option value="">Selecione um item</option>
+			<option value="Alimentação">Alimentação</option>
+			<option value="Voo">Voo</option>
+			<option value="Interação">Interação (outros indivíduos)</option>
+			<option value="Atacar">Atacar outras aves (outras espécies)</option>
+			<option value="Descanso">Descanso</option>
+			<option value="Não registou">Não registou</option>
+		</select>							
+	</label>
+</fieldset>
+
+
+
+<fieldset>
+	<legend>Habitat</legend>
+	<span class="fieldset_description">
+		Procure ser o mais preciso quanto puder
+	</span>
+	<label>
+		Tempo
+		<select name="weather">
+			<option value="">Selecione um item</option>
+			<option value="Limpo">Limpo</option>
+			<option value="Nublado">Nublado</option>
+			<option value="Chuvoso">Chuvoso</option>
+			<option value="Tempestuoso">Tempestuoso</option>
+			<option value="Não registou">Não registou</option>
+		</select>
+	</label>
+	<label>
+		Habitat
+		<span class="label_description">
+			Indique as características ecológicas principais do local onde se deu a observação
+		</span>						
+		<select name="habitat">
+			<option value="">Selecione um item</option>
+			<option value="Árvore alta (+25m)">Árvore alta (+25m)</option>
+			<option value="Árvore média (até 25m)">Árvore média (até 25m)</option>
+			<option value="Árvore baixa (abaixo de 5m)">Árvore baixa (abaixo de 5m)</option>
+			<option value="Próximo ou em água">Próximo ou em água</option>
+			<option value="Depósito de lixo">Depósito de lixo</option>
+			<option value="Urbano">Urbano</option>
+			<option value="Agrícola">Agrícola</option>
+			<option value="Florestal">Florestal</option>
+			<option value="Não registou">Não registou</option>
+		</select>
+	</label>
+</fieldset>
+
+
+<fieldset>
+	<legend>Dados do Local</legend>
+	<label>
+		Coordenadas
+		<span class="label_description">
+			Confirme as coordenadas
+		</span>
+		<div class="two_col coor">Latitude
+			<input type="text" name="latitude"/>
+		</div>
+		<div class="two_col coor">Longitude
+			<input type="text" name="longitude"/>
+		</div>
+		<a id="get_position" class="btn btn_primary">Obter coordenadas</a>
+	</label>
+</fieldset>
+
+<fieldset>
+	<legend>Observações</legend>
+	<label>
+		<span class="label_description">
+			Se tiver outras informações relevantes, aponte neste campo. Se não encontra o município ou distrito, indique neste campo. Se observou algum comportamento relevante, faça aqui uma breve descrição.
+		</span>
+		<textarea name="comments"></textarea>
+	</label>
+</fieldset>
+
+
+<fieldset>
+	<legend>Imagem</legend>
+	<label>
+		<input type="file" id="files" name="files[]" multiple>
+
+		<!-- <input id="file" name="image" type="file" accept="image/*" capture> -->
+	</label>
+</fieldset>
+
+
+<fieldset class="footer">
+		<button id="save" class="btn btn_secondary">save</button>
+		<button id="send" class="btn btn_primary">send</button>
+		<button id="cancel" class="btn btn_primary">cancel</button>
+</fieldset>
+</form>
+
+
+<script>
+
+
+
+	$(" #send ").click(function(event) {
+		event.preventDefault();
+
+		var form_id = "form";
+		var local_key = "form_app";
+		var timestamp = "";
+		processForm(form_id, local_key);
+
+	});
+
+
+	(function load_name_age() {
+
+			var retrievedObject = localStorage.getItem("user_id");
+			
+			if (retrievedObject) {
+				var data = JSON.parse(retrievedObject);
+				$( "input[name='name']" ).val(data.name);
+				$( "input[name='age']" ).val(data.age);
+				console.log(data.name, data.age);
+			} else {
+				return false
+			}
+	})();
+
+</script>
