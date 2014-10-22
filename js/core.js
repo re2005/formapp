@@ -83,24 +83,6 @@ $('#result').click (function () {
 
 
 
-$('#show').click (function (event) {
-	event.preventDefault();
-
-	var text = $(this).html();
-	if (text == "show") {
-		loadRegisters();
-		$(this).html("hide");
-	} else {
-		$(this).html("show");
-		$( "#view" ).empty();
-	}
-	$("#view").slideToggle("fast")
-});
-
-
-
-
-
 
 function processForm(form_id, local_key, timestamp) {
 	
@@ -108,13 +90,14 @@ function processForm(form_id, local_key, timestamp) {
 	storeMessage(form_id, local_key, timestamp);
 
 	// Send using PHP
+
+/*
 	$.post( $(form_id).attr("action"), $(form_id+" :input").serializeArray(), function(data){
 		console.log("Data sent");
+		//clearInput();
 		return false
 	});
-	//clearInput();
-	//$( "header" ).show();
-	//$( ".level1, .level2" ).hide();
+*/
 };
  
 
@@ -289,12 +272,11 @@ function readName() {
 // List all LocalStorage Items
 function getLocalItems() {
 	$.each( localStorage, function( key, value ) {
-	var container = $("<ul class=report/>");
-	var key = key.replace("form_app_","");
-	var key = key.split('_');
-	$("<li><span>"+ key[0] + "</span> " + key[1] + "</li>").appendTo(container);
-	$('body').prepend(container);
-
+		var container = $("<ul class=report/>");
+		var key = key.replace("form_app_","");
+		var key = key.split('_');
+		$("<li><span>"+ key[0] + "</span> " + key[1] + "</li>").appendTo(container);
+		$('body').prepend(container);
 	});
 
 }
@@ -320,13 +302,13 @@ function getLocalImg() {
 
 
 
-function getLocalData() {
+function getLocalData(target) {
 	$.each( localStorage, function( key, value ) {
 		var data = JSON.parse(value);
 		var container = $("<ul class=report/>");
 		$.each(data, function(k, v) {	
 			$("<li><span>"+ k + ":</span> " + v + "</li>").appendTo(container);
-			$('body').prepend(container);
+			$(target).prepend(container);
 		});
 	});
 }

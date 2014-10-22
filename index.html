@@ -18,10 +18,12 @@
 
 	<nav>
 		<ul>
+			<li id="welcome" class="icon icon-screen active">Welcome</li>
 			<li id="my_data" class="icon icon-cloud">My data sent</li>
 			<li id="my_data_pendding" class="icon icon-inbox">Pedding to send</li>
 			<li id="all_data" class="icon icon-book">See all data</li>
 		</ul>
+		<button id="send_new_data" class="alizarin-flat-button">send new data</button>
 	</nav>
 
 
@@ -31,7 +33,7 @@
 
 
 	<footer>
-		<button id="send" class="alizarin-flat-button btn">send new data</button>
+		
 	</footer>
 
 	<div id="loading"><div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div></div>
@@ -54,8 +56,20 @@
 		(function start(){
 			get_user();
 			$("nav, header, footer").fadeIn(500);
+
 		})();
 	}
+
+
+
+
+	$(" #my_data ").click(function(event) {
+		event.preventDefault();
+		var page = "pages/my_data.html";
+		var target = "#content";
+		app_nav(page, target);
+	});
+
 
 
 
@@ -63,7 +77,7 @@
 	$(" #all_data ").click(function(event) {
 		event.preventDefault();
 		var page = "pages/all_data.html";
-		var target = "#main";
+		var target = "#content";
 		app_nav(page, target);
 	});
 
@@ -72,15 +86,14 @@
 
 
 
-	$(" #btn_close ").click(function(event) {
-		event.preventDefault();
-		$( "#page_slide" ).addClass("close");
-	});
 
 
 
 
-	$(" #send ").click(function(event) {
+
+
+
+	$(" #send_new_data ").click(function(event) {
 		event.preventDefault();
 		var page = "pages/send.html";
 		var target = "#main";
