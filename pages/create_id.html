@@ -13,8 +13,8 @@
 		</label>
 	</fieldset>
 
-	<a id="btn_back" class="btn btn_tertiary">back</a>
-	<button id="btn_enter" class="btn btn_secondary">enter</button>
+	<button id="btn_back" class="btn silver-flat-button two_col">back</a>
+	<button id="btn_enter" class="btn green-sea-flat-button two_col">enter</button>
 	
 </form>
 
@@ -32,6 +32,14 @@
 
 	$(" #btn_enter ").click(function(event) {
 		event.preventDefault();
+
+		var field = $("#form input").val();
+		console.log(field);
+		if ( !field ) {
+			alert("Please fill the fields");
+			return false;
+		}
+
 
 		var form_id = "form";
 		var local_key = "user_id";
