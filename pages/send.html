@@ -137,6 +137,13 @@
 <script>
 
 
+$('#get_position').click (function (event) {
+	event.preventDefault();
+	getLocation();
+});
+
+
+
 	$( document ).ready(function() {
 
 		if (isLocalStorageSupported()) {

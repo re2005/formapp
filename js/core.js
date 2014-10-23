@@ -74,12 +74,6 @@ function showPosition(position) {
 	$( "input[name='longitude']" ).val(position.coords.longitude);
 };
 
-$('#get_position').click (function (event) {
-	event.preventDefault();
-	getLocation();
-});
-
-
 
 
 
@@ -335,6 +329,8 @@ function getLocalData(target) {
 
 	var counter_report = 0;
 
+	$(target).empty();
+
 	$.each( localStorage, function( key, value ) {
 
 	if (key.indexOf('formapp') > -1) {
@@ -348,7 +344,6 @@ function getLocalData(target) {
 		var data = JSON.parse(value);
 		var container = $("<ul class=report_"+counter_report+"><li class=title>"+date+"</li></ul>");
 		
-
 		$.each(data, function(k, v) {
 			$("<li><span>"+ k + ":</span> " + v + "</li>").appendTo(container);
 			$(target).prepend(container);
