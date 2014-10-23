@@ -1,0 +1,25 @@
+<article class="welcome">
+
+	<h1 class="icon icon-cloud"> You have no data sent yet</h1>
+
+
+<script>
+	
+$.each( localStorage, function( key, value ) {
+	if (key.indexOf('formapp_') > -1) {
+
+		var page = "pages/my_data.html";
+		var target = "#content";
+		app_nav(page, target);
+
+		$("#welcome").remove();
+		$("#my_data").addClass("active");
+		return false;
+	}
+});
+
+</script>
+
+
+</article>
+

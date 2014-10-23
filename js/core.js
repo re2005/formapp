@@ -3,31 +3,41 @@ Renatex Form APP
 */
 
 
+function init(page, target){
+	var user_id = localStorage.getItem("user_id");
 
-function app_navigation(page, target) {
-	console.log(page, target);
-	$( target ).empty().hide();
-		$('#'+target).load(page,function(responseTxt,statusTxt,xhr) {
-			if(statusTxt=="success")
-				$( "#main" ).fadeIn(500);
-				console.log("External content loaded successfully!");
-			if(statusTxt=="error")
-				console.log("Error: "+xhr.status+": "+xhr.statusText);
-	});
+	if ( !user_id ){
+		(function start(){
+			var page = "pages/start.html";
+			app_nav(page);
+		})();
+	} else {
+		(function start(){
+			get_user();
+			$("nav, header, footer").fadeIn(500);
+
+			app_nav(page, target);			
+		})();
+	}
 }
 
 
 
+
+
 function app_nav(page, target) {
+	$("#loading").fadeIn(200);
 	$.ajax({
 	    url: page,
 	    success: function (data) {
 	    	if (!target) {
 	    		$('body').append(data).hide().fadeIn(500);
+	    		$("#loading").fadeOut(200);
 	    	}
 	    	 else {
 	    	 	$(target).empty();
 	    	 	$(target).append(data).hide().fadeIn(500);
+	    	 	$("#loading").delay(200).fadeOut(200);
 	    	 }
 		},
 	    dataType: 'html'
@@ -58,19 +68,17 @@ function getLocation() {
 		alert("Geolocation is not supported by this browser");
 	}
 };
+
 function showPosition(position) {
 	$( "input[name='latitude']" ).val(position.coords.latitude);
 	$( "input[name='longitude']" ).val(position.coords.longitude);
 };
-$('#get_position').click (function () {
+
+$('#get_position').click (function (event) {
+	event.preventDefault();
 	getLocation();
 });
 
-
-
-$('#result').click (function () {
-	$('#result').slideToggle("fast");
-});
 
 
 
@@ -85,19 +93,17 @@ $('#result').click (function () {
 
 
 function processForm(form_id, local_key, timestamp) {
-	
 	// Save Form on LocalStorage
 	storeMessage(form_id, local_key, timestamp);
 
 	// Send using PHP
-
-/*
-	$.post( $(form_id).attr("action"), $(form_id+" :input").serializeArray(), function(data){
-		console.log("Data sent");
-		//clearInput();
-		return false
-	});
-*/
+	/*
+		$.post( $(form_id).attr("action"), $(form_id+" :input").serializeArray(), function(data){
+			console.log("Data sent");
+			//clearInput();
+			return false
+		});
+	*/
 };
  
 
@@ -136,7 +142,9 @@ function isLocalStorageSupported(){
 
 function saveimg(id, form_id) {
 
-	if( $(form_id+" label ").length ) {
+	var image_true = $(form_id+" #files ").length;
+
+	if( !image_true) {
 		return false
 	}
 
@@ -157,18 +165,11 @@ function saveimg(id, form_id) {
 	  reader.onload = (function(theFile) {
 		return function(e) {
 
-		  // Render thumbnail.
-		  var span = document.createElement('span');
-		  span.innerHTML = ['<img class="thumb" src="', e.target.result,
-							'" title="', escape(theFile.name), '"/>'].join('');
+			// Save on locaStorage
+			var imgID = id + "_"+ imgCounter;
+			localStorage.setItem(imgID, e.target.result);
+			imgCounter ++;
 
-		  document.getElementById('list').insertBefore(span, null);
-
-		  
-		  // Save on locaStorage
-		  var imgID = id + "_"+ imgCounter;
-		  localStorage.setItem(imgID, e.target.result);
-		  imgCounter ++;
 		};
 	  })(f);
 
@@ -181,29 +182,31 @@ function saveimg(id, form_id) {
 
 
 
-
+function check_imgs() {
 
 // Check and automaticaly open localstorage images
-  if(localStorage.img) { 
-		 var span = document.createElement('span');
-		  span.innerHTML += ['<img class="thumb" src="', localStorage.img,
-							'" title="test"/>'].join('');
-		  document.getElementById('list').insertBefore(span, null);
+  if(localStorage.img) {
+
+			var span = document.createElement('span');
+			span.innerHTML = ['<img class="thumb" src="', e.target.result,
+								'" title="', escape(theFile.name), '"/>'].join('');
+
+			$("body").append(span, null);
 	}
+}
 
 
 
-
-function openimg(id) {
+function openimg(id, target) {
 	var imgURL = localStorage.getItem(id);
 
-	 var span = document.createElement('span');
-	  span.innerHTML += ['<img class="thumb" src="', imgURL,
-						'" title="test"/>'].join('');
-	  document.getElementById('list').insertBefore(span, null);
+	if (imgURL) {
 
-	$('body').prepend(imgURL);
-
+		var span = document.createElement('span');
+		span.innerHTML += ['<img class="thumb" src="', imgURL,
+					'" title="test"/>'].join('');
+		$(target).append(span, null);
+	}
 }
 
 
@@ -211,14 +214,17 @@ function openimg(id) {
 // Save on Local Storage
 function storeMessage(form_id, local_key, timestamp){
 	if(isLocalStorageSupported){
-		console.log(timestamp);
+		
 		if (!timestamp) {
 			var local_key = local_key + new Date().getTime();	
 		}
 		var local_storage = JSON.stringify($(form_id).serializeObject());
 		localStorage.setItem(local_key, local_storage);
 		console.log(local_key+" ok");
-		saveimg("img_"+local_key, form_id);
+
+		var local_key = local_key.split('_');
+
+		saveimg("img_"+local_key[1], form_id);
 	}
 	else {
 		console.log("No local storage :(")
@@ -255,10 +261,7 @@ function getMessage(id) {
 
 
 
-
-
-
-
+// Print the username on H1 element
 function readName() {
 	$.each( localStorage, function( key, value ) {
 		var data = JSON.parse(value);
@@ -269,11 +272,37 @@ function readName() {
 
 
 
+
+
+
+
+// Check if user have data sent
+function user_have_data() {
+	$.each( localStorage, function( key, value ) {
+
+		if (key.indexOf('formapp_') > -1) {
+
+			var data = "true";
+			return true;
+		} else {
+			return false;
+		}
+
+	});
+
+}
+
+
+
+
+
+
+
 // List all LocalStorage Items
 function getLocalItems() {
 	$.each( localStorage, function( key, value ) {
 		var container = $("<ul class=report/>");
-		var key = key.replace("form_app_","");
+		var key = key.replace("formapp_","");
 		var key = key.split('_');
 		$("<li><span>"+ key[0] + "</span> " + key[1] + "</li>").appendTo(container);
 		$('body').prepend(container);
@@ -303,13 +332,44 @@ function getLocalImg() {
 
 
 function getLocalData(target) {
+
+	var counter_report = 0;
+
 	$.each( localStorage, function( key, value ) {
+
+	if (key.indexOf('formapp') > -1) {
+
+		var key_data = key.split('_');
+		var key = key_data[1];
+		var date = new Date(key * 1000)
+
+		var counter = 0;
+
 		var data = JSON.parse(value);
-		var container = $("<ul class=report/>");
-		$.each(data, function(k, v) {	
+		var container = $("<ul class=report_"+counter_report+"><li class=title>"+date+"</li></ul>");
+		
+
+		$.each(data, function(k, v) {
 			$("<li><span>"+ k + ":</span> " + v + "</li>").appendTo(container);
 			$(target).prepend(container);
+
 		});
+
+
+			for ( var i = 0; i < 10; i++ ) {
+					var img_id = "img_"+key_data[1]+"_"+i;
+					var img_target = ".report_"+counter_report
+					console.log(img_id, img_target);
+					openimg(img_id, img_target);
+			}
+
+
+		counter_report ++;
+		
+		//return false;
+	}
+
+
 	});
 }
 
@@ -378,21 +438,6 @@ function doesConnectionExist() {
 
 
 
-$( document ).ready(function() {
-
-	if (isLocalStorageSupported()) {
-		if (doesConnectionExist()){
-			$("#send").show();
-			$("#save").hide();
-		} else {
-			$("#send").hide();
-			$("#save").show();
-		}
-	} else {
-		alert("Our browser do not support localStorage :(")
-	}
-  
-});
 
 
 

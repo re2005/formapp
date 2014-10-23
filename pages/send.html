@@ -99,7 +99,7 @@
 		<div class="two_col coor">Longitude
 			<input type="text" name="longitude"/>
 		</div>
-		<a id="get_position" class="btn btn_primary">Obter coordenadas</a>
+		<a id="get_position" class="icon icon-globe emerald-flat-button btn">Obter coordenadas</a>
 	</label>
 </fieldset>
 
@@ -116,6 +116,9 @@
 
 <fieldset>
 	<legend>Imagem</legend>
+		<span class="label_description">
+			Adicione até 3 fotos
+		</span>	
 	<label>
 		<input type="file" id="files" name="files[]" multiple>
 
@@ -125,9 +128,8 @@
 
 
 <fieldset class="footer">
-		<button id="save" class="btn btn_secondary">save</button>
-		<button id="send" class="btn btn_primary">send</button>
-		<button id="cancel" class="btn btn_primary">cancel</button>
+		<button id="save" class="green-sea-flat-button btn two_col">save</button>
+		<button id="send" class="green-sea-flat-button btn two_col">send</button>
 </fieldset>
 </form>
 
@@ -135,20 +137,41 @@
 <script>
 
 
+	$( document ).ready(function() {
+
+		if (isLocalStorageSupported()) {
+			if (doesConnectionExist()){
+				$("#send").show();
+				$("#save").hide();
+			} else {
+				$("#send").hide();
+				$("#save").show();
+			}
+		} else {
+			alert("Our browser do not support localStorage :(")
+		}
+	  
+	});
+
+
 
 	$(" #send ").click(function(event) {
 		event.preventDefault();
 
 		var form_id = "form";
-		var local_key = "form_app";
+		var local_key = "formapp_";
 		var timestamp = "";
 		processForm(form_id, local_key);
+
+		var page = "pages/thanks.html";
+		var target = "#content";
+		app_nav(page, target);
+
 
 	});
 
 
 	(function load_name_age() {
-
 			var retrievedObject = localStorage.getItem("user_id");
 			
 			if (retrievedObject) {

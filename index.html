@@ -20,7 +20,7 @@
 		<ul>
 			<li id="welcome" class="icon icon-screen active">Welcome</li>
 			<li id="my_data" class="icon icon-cloud">My data sent</li>
-			<li id="my_data_pendding" class="icon icon-inbox">Pedding to send</li>
+			<li id="my_data_pending" class="icon icon-inbox">Peding to send</li>
 			<li id="all_data" class="icon icon-book">See all data</li>
 		</ul>
 		<button id="send_new_data" class="alizarin-flat-button">send new data</button>
@@ -45,20 +45,17 @@
 
 	<script>
 
-	var user_id = localStorage.getItem("user_id");
+	// Start the app
+	init("pages/welcome.html", "#content");
 
-	if ( !user_id ){
-		(function start(){
-			var page = "pages/start.html";
-			app_nav(page);
-		})();
-	} else {
-		(function start(){
-			get_user();
-			$("nav, header, footer").fadeIn(500);
 
-		})();
-	}
+
+	$(" #welcome ").click(function(event) {
+		event.preventDefault();
+		var page = "pages/welcome.html";
+		var target = "#content";
+		app_nav(page, target);
+	});
 
 
 
@@ -73,10 +70,9 @@
 
 
 
-
-	$(" #all_data ").click(function(event) {
+	$(" #my_data_pending ").click(function(event) {
 		event.preventDefault();
-		var page = "pages/all_data.html";
+		var page = "pages/pending.html";
 		var target = "#content";
 		app_nav(page, target);
 	});
@@ -84,9 +80,13 @@
 
 
 
+	$(" #all_data ").click(function(event) {
+		event.preventDefault();
+		var page = "pages/all_data.html";
+		var target = "#content";
+		app_nav(page, target);
 
-
-
+	});
 
 
 
@@ -96,8 +96,11 @@
 	$(" #send_new_data ").click(function(event) {
 		event.preventDefault();
 		var page = "pages/send.html";
-		var target = "#main";
-		app_nav(page, target);		
+		var target = "#content";
+		app_nav(page, target);
+
+		$("ul li").removeClass("active");
+		$(this).addClass("active");			
 		
 	});	
 
@@ -106,7 +109,7 @@
 
 	(function(){
 		$("ul li").click(function(){
-			$("ul li").removeClass("active");
+			$("body *").removeClass("active");
 			$(this).addClass("active");
 		})
 	})();
