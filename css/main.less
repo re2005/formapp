@@ -3,11 +3,9 @@
 
 @import "reset.less";
 @import "elements.less";
-//@import "grid.less";
 @import "icons.less";
 @import "buttons.less";
 @import "home.less";
-
 
 
 
@@ -116,56 +114,29 @@ select {
 
 
 
-
-#result {
-	padding: 4%;
-	position: fixed;
-	left: 0;
-	height: 220px;
-	bottom: 0;
-	background: rgba(0,0,0, 0.9);
-	color: #fff;
-	font-size: 1rem;
-	line-height: 1.2rem;
-	display: none;
-	word-wrap: break-word;
-	width: 92%;
-}
-#view {
-	padding: 4%;
-	position: fixed;
-	left: 0;
-	height: 80%;
-	bottom: 0;
-	background: rgba(0,0,0, 0.9);
-	color: #fff;
-	font-size: 1rem;
-	line-height: 1.2rem;
-	display: none;
-	word-wrap: break-word;
-	width: 92%;
-	padding-bottom: 100px;
-	overflow: auto;
-}
-
-.report {
+.report, [class^="report_"] {
 	background: rgba(255,255,255,0.1);
 	margin: 20px 0;
 	padding: 10px;
 }
-.report span{
+.report li , [class^="report_"] li{
+	border-bottom: 1px solid #eee;
+	padding: 4px 0;
+}
+.report span, [class^="report_"] span{
 	width: 30%;
 	padding-right: 10px;
-	text-align: right;
+	
 	display: inline-block;
+}
+.title {
+	font-size: 1.2rem;
+	
 }
 
 
-#btn_start_app {
-	width: 90%;
-	margin: 20px auto;
-	display: inherit;
-	font-size: 1.4rem;
+[class^="report_"] img {
+	width: 100px;
 }
 
 
