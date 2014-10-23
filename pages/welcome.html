@@ -4,7 +4,11 @@
 
 
 <script>
-	
+
+console.log("oi")
+
+setTimeout(function() {
+
 $.each( localStorage, function( key, value ) {
 	if (key.indexOf('formapp_') > -1) {
 
@@ -14,9 +18,16 @@ $.each( localStorage, function( key, value ) {
 
 		$("#welcome").remove();
 		$("#my_data").addClass("active");
-		return false;
+
 	}
 });
+
+}, 500)
+
+
+
+
+
 
 </script>
 
