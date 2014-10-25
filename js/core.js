@@ -272,17 +272,15 @@ function readName() {
 
 // Check if user have data sent
 function user_have_data() {
+	var data
 	$.each( localStorage, function( key, value ) {
 
 		if (key.indexOf('formapp_') > -1) {
-
-			var data = "true";
-			return true;
-		} else {
-			return false;
+			
 		}
-
+		return false
 	});
+
 
 }
 
@@ -307,62 +305,46 @@ function getLocalItems() {
 
 
 
-function getLocalImg() {
-	$.each( localStorage, function( key, value ) {
-
-	//var n = key.indexOf("i");
-	console.log(key);
-	str1 = key;
-	str2 = "img_form_app_";
-
-	if(str1.indexOf(str2) != -1){
-		alert(str2 + " found");
-	}
-
-	});
-}
-
 
 
 
 function getLocalData(target) {
 
 	var counter_report = 0;
-
 	$(target).empty();
-
 	$.each( localStorage, function( key, value ) {
 
-	if (key.indexOf('formapp') > -1) {
+		if (key.indexOf('formapp') > -1) {
 
-		var key_data = key.split('_');
-		var key = key_data[1];
-		var date = new Date(key * 1000)
+			var key_data = key.split('_');
+			var key = key_data[1];
+			var date = new Date(key * 1000)
 
-		var counter = 0;
+			//var counter = 0;
 
-		var data = JSON.parse(value);
-		var container = $("<ul class=report_"+counter_report+"><li class=title>"+date+"</li></ul>");
-		
-		$.each(data, function(k, v) {
-			$("<li><span>"+ k + ":</span> " + v + "</li>").appendTo(container);
-			$(target).prepend(container);
+			var data = JSON.parse(value);
+			var container = $("<ul class=report_"+counter_report+"><li class=title>"+date+"</li></ul>");
+			
+			$.each(data, function(k, v) {
+				$("<li><span>"+ k + ":</span> " + v + "</li>").appendTo(container);
+				$(target).prepend(container);
+			});
 
-		});
+			$(target).find( "li" ).eq( 1 ).remove();
+			$(target).find( "li" ).eq( 1 ).remove();
 
 
-			for ( var i = 0; i < 10; i++ ) {
-					var img_id = "img_"+key_data[1]+"_"+i;
-					var img_target = ".report_"+counter_report
-					console.log(img_id, img_target);
-					openimg(img_id, img_target);
+			for ( var i = 0; i < 5; i++ ) {
+				var img_id = "img_"+key_data[1]+"_"+i;
+				var img_target = ".report_"+counter_report
+				console.log(img_id, img_target);
+				openimg(img_id, img_target);
 			}
 
 
-		counter_report ++;
-		
-		//return false;
-	}
+			counter_report ++;
+			
+		}
 
 
 	});
