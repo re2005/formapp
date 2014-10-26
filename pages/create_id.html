@@ -11,11 +11,11 @@
 			Sua idade
 			<input type="text" name="age" placeholder="Apenas os algarismos" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"/>
 		</label>
-	</fieldset>
 
-	<button id="btn_back" class="btn silver-flat-button two_col">back</button>
-	<button id="btn_enter" class="btn green-sea-flat-button two_col">enter</button>
-	
+
+	<button id="btn_back" class="btn silver-flat-button col-1-4">back</button>
+	<button id="btn_enter" class="btn green-sea-flat-button col-3-4">enter</button>
+	</fieldset>	
 </form>
 
 
@@ -48,7 +48,7 @@
 
 		$( ".create_id" ).remove();
 		get_user();
-		$("nav, header, footer").fadeIn(500);
+		$("#app").fadeIn(500);
 		init("pages/welcome.html", "#content");
 	});
 

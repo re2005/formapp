@@ -11,33 +11,29 @@
 <body ontouchstart="" class="container">
 
 
-	<header>
-		<span class="logo"><img src="img/raven.png" width="180px;"></span>
-		<h1 id="user_name"></h1>
-	</header>
+	<div id="app">
+		<header>
+			<span class="logo"><img src="img/raven.png" width="180px;"></span>
+			<h1 id="user_name"></h1>
+			<a id="open_menu" class="icon icon-menu"></a>
+		</header>
 
-	<nav>
-		<ul>
-			<li id="welcome" class="icon icon-screen active">Welcome</li>
-			<li id="my_data" class="icon icon-cloud">My data sent</li>
-			<li id="my_data_pending" class="icon icon-inbox">Peding to send</li>
-			<li id="all_data" class="icon icon-book">See all data</li>
-		</ul>
-		<button id="send_new_data" class="alizarin-flat-button">send new data</button>
-	</nav>
-
-
-	<section id="main">
-		<div id="content"></div>
-	</section>
+		<nav>
+			<ul>
+				<li id="my_data" 			class="icon icon-cloud active">	My data sent 	</li>
+				<li id="my_data_pending" 	class="icon icon-inbox">		Peding to send 	</li>
+				<li id="all_data"			class="icon icon-book">			See all data 	</li>
+			</ul>
+			<button id="send_new_data" 		class="alizarin-flat-button col-1 icon icon-attachment">Send new data</button>
+		</nav>
 
 
-	<footer>
-		
-	</footer>
+		<section id="main">
+			<div id="content"></div>
+		</section>
+	</div>	
 
 	<div id="loading"><div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div></div>
-
 
 
 	<script src="js/jquery.min.js"></script>
@@ -46,7 +42,7 @@
 	<script>
 
 	// Start the app
-	init("pages/welcome.html", "#content");
+	init("pages/my_data.html", "#content");
 
 
 	$(" #welcome ").click(function(event) {
@@ -64,6 +60,7 @@
 		var page = "pages/my_data.html";
 		var target = "#content";
 		app_nav(page, target);
+		open_nav();
 	});
 
 
@@ -74,6 +71,7 @@
 		var page = "pages/pending.html";
 		var target = "#content";
 		app_nav(page, target);
+		open_nav();
 	});
 
 
@@ -84,10 +82,8 @@
 		var page = "pages/all_data.html";
 		var target = "#content";
 		app_nav(page, target);
-
+		open_nav();
 	});
-
-
 
 
 
@@ -99,11 +95,9 @@
 		app_nav(page, target);
 
 		$("ul li").removeClass("active");
-		$(this).addClass("active");			
-		
+		$(this).addClass("active");
+		open_nav();
 	});	
-
-
 
 
 	(function(){
@@ -112,6 +106,14 @@
 			$(this).addClass("active");
 		})
 	})();
+
+
+
+	$(document).on("click","#open_menu, #main.open_main",function() {
+	//$(" #open_menu, #main.open_main").click(function(event) {
+		event.preventDefault();
+		open_nav();
+	});
 
 	</script>
 

@@ -1,39 +1,139 @@
 @charset "UTF-8";
 
-
 @import "reset.less";
 @import "elements.less";
+@import "grid.less";
 @import "icons.less";
 @import "buttons.less";
-@import "home.less";
+@import "start.less";
+
+
+
+#app {
+	display: none;
+}
+#main {
+	.transition(.25s, ease-in);
+	float: right;
+	padding: 80px 0;
+	width: 70%;
+
+	.title {
+		font-size: 1.3rem;
+		font-weight: bold;
+	}
+	.title_small {
+		font-size: 1rem;
+		font-weight: bold;
+		padding: 10px 0;
+	}
+
+}
+
+
+header {
+	z-index: 3;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	background: rgba(200, 200, 200, 1);
+	padding: 10px;
+	.box-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+
+	.logo {
+		position: absolute;
+		width: 38px;
+		text-align: center;
+		.border-radius(40px, 40px, 40px, 40px);
+		background: #fff;
+
+		img {
+			width: 30px;
+			margin-top: 8px;
+		}
+	}
+	h1 {
+		display: inline-block;
+		font-size: 1.4rem;
+		position: relative;
+		margin: 5px 0 0 50px;
+
+		span {
+			position: absolute;
+			right: -25px
+		}
+	}
+
+	#open_menu {
+		.transition(.25s, ease-in);
+		position: absolute;
+		right: 0;
+		top: 0;
+		padding: 18px;
+		font-size: 1.4rem;
+		color: #fff;
+		cursor: pointer;
+	}
+	.open_icon {
+		color: #333 !important;
+	}
+
+}
+
+
+
+nav {
+	.transition(.2s, ease-out);
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	top: 0;
+	padding-top: 80px;
+	width: 25%;
+	background: rgba(200, 200, 200, 0.5);
+
+	li {
+		padding: 20px;
+		.transition(.2s, ease-out);
+	}
+
+	#send_new_data {
+		text-align: left;
+	}
+}
+
+
+// Open and close the navigation
+.open_main {
+	transform: translate(60%, 0);
+	opacity: .1;
+}
+
+.open_nav {
+	transform: translate(0%, 0);
+}
+
+
+
+
+
+
 
 
 
 .modal {
 	background: rgba(255, 255, 255, 0.95);
-	padding: 20px;
+	padding: 20px 0;
+	max-width: 700px;
+	margin: auto;
 	text-align: center;
 	z-index: 100;
-	position: fixed;
 	bottom: 0;
 	top: 0;
 }
 
-.start {
 
-	.logo {
-		width: 160px;
-		height: 160px;
-		.border-radius(100px, 100px, 100px, 100px);
-		border: 1px solid #eee;
-		display: inline-block;
-
-		img {
-			width: 120px;
-			padding-top: 42px;
-		}
-	}
-}
 
 
 
@@ -62,7 +162,7 @@ label {
 	margin: 15px 0;
 	font-size: .9rem;
 }
-input[type="text"], select, textarea {
+input[type="text"], select, textarea, input[type="date"] {
 	margin-top: 4px;
 	text-indent: 10px;
 	width: 100%;
@@ -96,15 +196,7 @@ select {
 	margin: 4px 0;
 	font-weight: normal;
 }
-.two_col {
-	margin: 10px 0;
-	width: 45%;
-	display: inline-block;
-}
-.two_col:first-of-type {
-	margin-right: 10px;
-}
-
+// Latitude Longitude input adjust
 .coor input{
 	font-size: .7rem;
 }
@@ -114,9 +206,11 @@ select {
 
 
 
+
+
 .report, [class^="report_"] {
 	background: rgba(255,255,255,0.1);
-	margin: 20px 0;
+	margin: 40px 0;
 	padding: 10px;
 }
 .report li , [class^="report_"] li{
@@ -129,10 +223,7 @@ select {
 	
 	display: inline-block;
 }
-.title {
-	font-size: 1.2rem;
-	
-}
+
 
 
 [class^="report_"] img {
@@ -152,7 +243,7 @@ select {
 	bottom: 0;
 	right: 0;
 	background: rgba(255, 255, 255, 0.9);
-	z-index: 20;
+	z-index: 101;
 }
 .spinner {
   width: 40px;
@@ -209,12 +300,36 @@ select {
 
     @media only screen and (max-width: 480px) and (max-width: 767px) {
 
+    	#main {
+    		width: 100%;
+    	}
+
+
     	nav {
-    		width: 50%;
-    		z-index: 11;
+    		.box-shadow(1px 0 5px rgba(0, 0, 0, 0.3));
+    		transform: translate(-100%, 0);
+    		width: 60%;
+    		z-index: 1;
     		
     		li{
     			padding: 15px 5px;
     		}
     	}
+
+
     }
+
+
+
+
+@media only screen and (min-width: 768px) {
+
+
+		#open_menu {
+			display: none;
+		}
+
+}
+
+
+
