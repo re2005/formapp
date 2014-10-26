@@ -337,6 +337,9 @@ function getLocalData(target, key_name) {
 	$(target).empty();
 	$.each( localStorage, function( key, value ) {
 
+
+		$("#total_sent").html(counter_report+1);
+
 		if (key.indexOf(key_name) > -1) {
 
 			var key_data = key.split('_');
