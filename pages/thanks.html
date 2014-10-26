@@ -2,16 +2,24 @@
 
 	<h1 class="icon icon-cloud"> Thank you!</h1>
 
-	<button id="btn_back" class="btn silver-flat-button two_col">voltar</button>
+	<button id="btn_back" class="btn silver-flat-button col-1-2">voltar</button>
 
 
 <script>
 	
 	$(" #btn_back ").click(function(event) {
 		event.preventDefault();
-		var page = "pages/welcome.html";
+		var page = "pages/my_data.html";
 		var target = "#content";
 		app_nav(page, target);
+
+		(function(){
+			$("ul li").click(function(){
+				$("body *").removeClass("active");
+				$("#my_data").addClass("active");
+			})
+		})();
+		
 	});
 
 </script>

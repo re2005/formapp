@@ -14,7 +14,7 @@ function init(page, target){
 	} else {
 		(function start(){
 			get_user();
-			$("nav, header, footer").fadeIn(500);
+			$("#app").fadeIn(500);
 
 			app_nav(page, target);			
 		})();
@@ -47,15 +47,38 @@ function app_nav(page, target) {
 
 
 
+function open_nav(){
+
+	var desktop = $(window).width();
+	if (desktop >= 1000)
+		return false
+
+	$("#open_menu").toggleClass("open_icon");
+	$("nav").toggleClass("open_nav");
+	$("#main").toggleClass("open_main");
+}
+
+
 
 // Set the timestamp
-$( "input[name='data']" ).val(getTimeStamp());
-function getTimeStamp(id) {
-	var now = new Date();
-	return ((now.getMonth() + 1) + '/' + (now.getDate()) + '/' + now.getFullYear() + "_" + now.getHours() + ':'
-		+ ((now.getMinutes() < 10) ? ("0" + now.getMinutes()) : (now.getMinutes())) + ':' + ((now.getSeconds() < 10) ? ("0" + now
-			.getSeconds()) : (now.getSeconds())));
+
+
+
+
+function getTimeStamp() {
+    var now = new Date();
+    var month = (now.getMonth() + 1);               
+    var day = now.getDate();
+    if(month < 10) 
+        month = "0" + month;
+    if(day < 10) 
+        day = "0" + day;
+    var today = now.getFullYear() + '-' + month + '-' + day;
+    $('#date').val(today);
 }
+
+
+
 
 
 
@@ -276,7 +299,7 @@ function user_have_data() {
 	$.each( localStorage, function( key, value ) {
 
 		if (key.indexOf('formapp_') > -1) {
-			
+
 		}
 		return false
 	});
@@ -308,13 +331,13 @@ function getLocalItems() {
 
 
 
-function getLocalData(target) {
+function getLocalData(target, key_name) {
 
 	var counter_report = 0;
 	$(target).empty();
 	$.each( localStorage, function( key, value ) {
 
-		if (key.indexOf('formapp') > -1) {
+		if (key.indexOf(key_name) > -1) {
 
 			var key_data = key.split('_');
 			var key = key_data[1];
@@ -323,7 +346,7 @@ function getLocalData(target) {
 			//var counter = 0;
 
 			var data = JSON.parse(value);
-			var container = $("<ul class=report_"+counter_report+"><li class=title>"+date+"</li></ul>");
+			var container = $("<ul class=report_"+counter_report+"><li class=title_small>"+date+"</li></ul>");
 			
 			$.each(data, function(k, v) {
 				$("<li><span>"+ k + ":</span> " + v + "</li>").appendTo(container);
@@ -349,6 +372,9 @@ function getLocalData(target) {
 
 	});
 }
+
+
+
 
 
 

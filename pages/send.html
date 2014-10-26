@@ -6,10 +6,10 @@
 
 <div class="level2">
 <fieldset>
-	<legend>Dados da Observação</legend>
+	<legend class="icon icon-inbox">Dados da Observação</legend>
 	<label>
 		Data/hora
-		<input type="text" name="date" placeholder="Indique a data e a hora" />
+		<input id="date" type="date" name="date" placeholder="Indique a data e a hora" />
 	</label>
 	<label>
 		Número de indivíduos
@@ -93,13 +93,13 @@
 		<span class="label_description">
 			Confirme as coordenadas
 		</span>
-		<div class="two_col coor">Latitude
+		<div class="col-1-2 coor">Latitude
 			<input type="text" name="latitude"/>
 		</div>
-		<div class="two_col coor">Longitude
+		<div class="col-1-2 coor">Longitude
 			<input type="text" name="longitude"/>
 		</div>
-		<a id="get_position" class="icon icon-globe emerald-flat-button btn">Obter coordenadas</a>
+		<a id="get_position" class="icon icon-globe emerald-flat-button col-1 btn">Obter coordenadas</a>
 	</label>
 </fieldset>
 
@@ -128,8 +128,8 @@
 
 
 <fieldset class="footer">
-		<button id="save" class="green-sea-flat-button btn two_col">save</button>
-		<button id="send" class="green-sea-flat-button btn two_col">send</button>
+		<button id="save" class="green-sea-flat-button btn col-1 btn">save</button>
+		<button id="send" class="green-sea-flat-button btn col-1 btn">send</button>
 </fieldset>
 </form>
 
@@ -137,15 +137,19 @@
 <script>
 
 
-$('#get_position').click (function (event) {
-	event.preventDefault();
-	getLocation();
-});
+	// Set the date for the current day
+	getTimeStamp()
+
+
+
+	$('#get_position').click (function (event) {
+		event.preventDefault();
+		getLocation();
+	});
 
 
 
 	$( document ).ready(function() {
-
 		if (isLocalStorageSupported()) {
 			if (doesConnectionExist()){
 				$("#send").show();
@@ -157,8 +161,8 @@ $('#get_position').click (function (event) {
 		} else {
 			alert("Our browser do not support localStorage :(")
 		}
-	  
 	});
+
 
 
 
@@ -173,14 +177,26 @@ $('#get_position').click (function (event) {
 		var page = "pages/thanks.html";
 		var target = "#content";
 		app_nav(page, target);
+	});
 
 
+
+	$(" #save ").click(function(event) {
+		event.preventDefault();
+
+		var form_id = "form";
+		var local_key = "pending_";
+		var timestamp = "";
+		processForm(form_id, local_key);
+
+		var page = "pages/thanks.html#pensing";
+		var target = "#content";
+		app_nav(page, target);
 	});
 
 
 	(function load_name_age() {
 			var retrievedObject = localStorage.getItem("user_id");
-			
 			if (retrievedObject) {
 				var data = JSON.parse(retrievedObject);
 				$( "input[name='name']" ).val(data.name);
