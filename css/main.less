@@ -13,7 +13,7 @@
 	display: none;
 }
 #main {
-	.transition(.25s, ease-in);
+	.transition(.2s, ease-in);
 	float: right;
 	padding: 80px 0;
 	width: 70%;
@@ -107,11 +107,13 @@ nav {
 // Open and close the navigation
 .open_main {
 	transform: translate(60%, 0);
+	-webkit-transform: translate(60%, 0);
 	opacity: .1;
 }
 
 .open_nav {
 	transform: translate(0%, 0);
+	-webkit-transform: translate(0%, 0);
 }
 
 
@@ -252,6 +254,7 @@ select {
   position: relative;
   margin: 200px auto 0;
   transform: scale(3);
+  -webkit-transform: scale(3);
 }
 
 .double-bounce1, .double-bounce2 {
@@ -308,6 +311,7 @@ select {
     	nav {
     		.box-shadow(1px 0 5px rgba(0, 0, 0, 0.3));
     		transform: translate(-100%, 0);
+    		-webkit-transform: translate(-100%, 0);
     		width: 60%;
     		z-index: 1;
     		
