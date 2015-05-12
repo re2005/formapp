@@ -1,6 +1,12 @@
 <?php
 
-	include_once('my_pass.php'); // Set here your credentials
+	include_once('my_pass.php');
+
+	// Set here your credentials
+	// $dbhost = "";
+	// $dbuser = "";
+	// $dbpass = "";
+
 
 	$conn = mysql_connect($dbhost, $dbuser, $dbpass);
 	if(! $conn )
