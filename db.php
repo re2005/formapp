@@ -1,8 +1,7 @@
 <?php
 
-	$dbhost = "formapp2014.db.10951112.hostedresource.com";
-	$dbuser = "formapp2014";
-	$dbpass = "Renato020626!";
+	include_once('my_pass.php'); // Set here your credentials
+
 	$conn = mysql_connect($dbhost, $dbuser, $dbpass);
 	if(! $conn )
 	{
